@@ -15,22 +15,25 @@ host = "https://search-yummly-6lgizo4lc7zcv42cdizoq3mycq.us-east-1.es.amazonaws.
 
 def pull_recipes(request):
     es = Elasticsearch(host)
-    if request.method == "GET":
-        pantry_contents = request.GET;
-        #pantry_contents = ['broccoli','pasta']
-
+    if request.method=='GET':
+        pantry_items = [request.GET['pantry_items']];
+        #pantry_contents=['chicken']
+        result = []
+        recipe_result=[]
+        for item in pantry_items:
+            recipe_result = es.search(index= index_name, body={"from":0, "size": 5000, "query": {"match": {"ingredients": item }}})
+            for rec in recipe_result['hits']['hits']:
+                print(rec)
+                result.append(["totalTimeInSeconds:",rec['_source']['totalTimeInSeconds'],'smallImageUrls:',rec['_source']['smallImageUrls'],'ingredients:',rec['_source']['ingredients'],'recipeName:',rec['_source']['recipeName']])
     else:
-        pantry_contents="salmon, broccoli, chicken+spinach"
-    result = []
-    for item in pantry_contents:
-        recipe_result = es.search(index= index_name, body={"from":0, "size": 5000, "query": {"match": {"ingredients": item}}})
-
-    for rec in recipe_result['hits']['hits']:
-        print(rec)
-        result.append(["totalTimeInSeconds:",rec['_source']['totalTimeInSeconds'],'smallImageUrls:',rec['_source']['smallImageUrls'],'ingredients:',rec['_source']['ingredients'],'recipeName:',rec['_source']['recipeName']])
-
-
-        #print(recipe_result)
+        pantry_contents=["chicken","broccoli", "asparagus"]
+        result = []
+        recipe_result=[]
+        for item in pantry_contents:
+            recipe_result =es.search(index= index_name, body={"from":0, "size": 5000, "query": {"match": {"ingredients": item}}})
+            print(recipe_result)
+            for rec in recipe_result['hits']['hits']:
+                result.append(["totalTimeInSeconds:",rec['_source']['totalTimeInSeconds'],'smallImageUrls:',rec['_source']['smallImageUrls'],'ingredients:',rec['_source']['ingredients'],'recipeName:',rec['_source']['recipeName']])
     return HttpResponse(json.dumps(result))
 
 # def poll_data(request):
