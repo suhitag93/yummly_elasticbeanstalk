@@ -20,21 +20,24 @@ def pull_recipes(request):
         #pantry_contents=['chicken']
         result = []
         recipe_result=[]
+
         for item in pantry_items:
             recipe_result = es.search(index= index_name, body={"from":0, "size": 5000, "query": {"match": {"ingredients": item }}})
             for rec in recipe_result['hits']['hits']:
                 print(rec)
-                result.append(["totalTimeInSeconds:",rec['_source']['totalTimeInSeconds'],'smallImageUrls:',rec['_source']['smallImageUrls'],'ingredients:',rec['_source']['ingredients'],'recipeName:',rec['_source']['recipeName']])
+                result.append(rec)
+    #             result.append({"totalTimeInSeconds:",rec['_source']['totalTimeInSeconds'],
+    #                           'smallImageUrls:',rec['_source']['smallImageUrls'],'ingredients:',rec['_source']['ingredients'],'recipeName:',rec['_source']['recipeName']})
     else:
-        pantry_contents=["chicken","broccoli", "asparagus"]
+        pantry_items=["chicken","broccoli", "asparagus"]
         result = []
         recipe_result=[]
-        for item in pantry_contents:
+        for item in pantry_items:
             recipe_result =es.search(index= index_name, body={"from":0, "size": 5000, "query": {"match": {"ingredients": item}}})
             print(recipe_result)
             for rec in recipe_result['hits']['hits']:
-                result.append(["totalTimeInSeconds:",rec['_source']['totalTimeInSeconds'],'smallImageUrls:',rec['_source']['smallImageUrls'],'ingredients:',rec['_source']['ingredients'],'recipeName:',rec['_source']['recipeName']])
-    return HttpResponse(json.dumps(result))
+                result.append(rec)
+    return HttpResponse(json.dumps(result,))
 
 # def poll_data(request):
 #     while True:
