@@ -9,9 +9,9 @@ import certifi
 import elasticsearch
 import json
 
-index_name = "yummly_idx_3"
+index_name = "yummly_idx"
 
-host = "https://search-yummly-6lgizo4lc7zcv42cdizoq3mycq.us-east-1.es.amazonaws.com"
+host = "https://search-yummly-recipes-jim5fnxd4z4p4pbswyajetxtka.us-east-1.es.amazonaws.com"
 
 def pull_recipes(request):
     es = Elasticsearch(host)
