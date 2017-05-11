@@ -21,17 +21,17 @@ def pull_recipes(request):
 
     else:
         pantry_contents="salmon, broccoli, chicken+spinach"
-        result = []
-        for item in pantry_contents:
-             recipe_result = es.search(index= index_name, body={"from":0, "size": 5000, "query": {"match": {"ingredients": item}}})
+    result = []
+    for item in pantry_contents:
+        recipe_result = es.search(index= index_name, body={"from":0, "size": 5000, "query": {"match": {"ingredients": item}}})
 
-        for rec in recipe_result['hits']['hits']:
-            print(rec)
-            result.append(["totalTimeInSeconds:",rec['_source']['totalTimeInSeconds'],'smallImageUrls:',rec['_source']['smallImageUrls'],'ingredients:',rec['_source']['ingredients'],'recipeName:',rec['_source']['recipeName']])
+    for rec in recipe_result['hits']['hits']:
+        print(rec)
+        result.append(["totalTimeInSeconds:",rec['_source']['totalTimeInSeconds'],'smallImageUrls:',rec['_source']['smallImageUrls'],'ingredients:',rec['_source']['ingredients'],'recipeName:',rec['_source']['recipeName']])
 
 
         #print(recipe_result)
-        return HttpResponse(json.dumps(result))
+    return HttpResponse(json.dumps(result))
 
 # def poll_data(request):
 #     while True:
