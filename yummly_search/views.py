@@ -16,7 +16,7 @@ host = "https://search-yummly-6lgizo4lc7zcv42cdizoq3mycq.us-east-1.es.amazonaws.
 def pull_recipes(request):
     es = Elasticsearch(host)
     if request.method == "GET":
-        pantry_contents = request.GET['pantry_items']
+        pantry_contents = request.GET;
         #pantry_contents = ['broccoli','pasta']
 
     else:
