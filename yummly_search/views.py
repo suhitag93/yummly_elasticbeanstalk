@@ -5,7 +5,7 @@ import time
 from elasticsearch import Elasticsearch, RequestsHttpConnection
 from django.http import HttpResponse
 #from django.views.decorators.csrf import csrf_exempt
-#import certifi
+import certifi
 import elasticsearch
 import json
 
