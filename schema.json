@@ -1,0 +1,19 @@
+{
+  "collection" : "userpantry",
+  "schema" :{
+    "userid" : "string"
+    "syncDate" : "string",
+    "pantryitems" :
+    {
+      "itemName" : "string",
+      "quantity" : "number",
+      "type": "string",
+      "expiry" : "string"
+    }
+  },
+
+  "collection" : "user",
+  "schema":{
+
+  }
+}

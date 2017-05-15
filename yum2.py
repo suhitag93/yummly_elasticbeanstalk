@@ -5,7 +5,7 @@ from elasticsearch import Elasticsearch
 from yummly import Client
 
 
-q = "paneer"
+q = "Broccoli"
 
 mapping = {"mapping" : {
         "recipe":{
@@ -40,18 +40,16 @@ mapping = {"mapping" : {
 clt = Client(api_id="6aa3b3c5", api_key="98f091eede210875e3db43249b670de4",timeout=5.0,retries=0)
 
 
-maxRes = 70
+maxRes = 100
 search = clt.search(q,maxResult=maxRes)
 
-host = "https://search-yummly-recipes-jim5fnxd4z4p4pbswyajetxtka.us-east-1.es.amazonaws.com"
+host = "https://search-pantry2pan-7smzvxcni52n7uhnvtrwzrhj2q.us-east-1.es.amazonaws.com"
 
 es =  Elasticsearch(host)
 
 idx_name = "yummly_idx"
 
 es.indices.create(index=idx_name,body=mapping, ignore=400)
-
-#make a for loop here till maxResult
 
 for i in range(0,maxRes):
     try:

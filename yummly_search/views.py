@@ -11,7 +11,7 @@ import json
 
 index_name = "yummly_idx"
 
-host = "https://search-yummly-recipes-jim5fnxd4z4p4pbswyajetxtka.us-east-1.es.amazonaws.com"
+host = "https://search-pantry2pan-7smzvxcni52n7uhnvtrwzrhj2q.us-east-1.es.amazonaws.com"
 
 def pull_recipes(request):
     es = Elasticsearch(host)
@@ -38,19 +38,3 @@ def pull_recipes(request):
             for rec in recipe_result['hits']['hits']:
                 result.append(rec)
     return HttpResponse(json.dumps(result,))
-
-# def poll_data(request):
-#     while True:
-#         try:
-#             data_stream =    Recipes.objects.all()
-#             if len(data_stream)==0:
-#                 time.sleep(0.5)
-#             else:
-#                 recipes = []
-#                 for ds in data_stream:
-#                     recipes.append({"id": ds.id , "recipeName": ds.recipeName ,"ingredients": ds.ingredients ,"smallImageUrls": ds.smallImageUrls,"totalTimeInSeconds": ds.totalTimeInSeconds })
-#                     response = {"new_recipes": recipes}
-#                     Recipes.objects.all.delete()
-#                     return HttpResponse(json.dumps(response), content_type="application/json", status= 200)
-#         except:
-# 			return HttpResponse(json.dumps({}),content_type="application/json",status = 200 )
